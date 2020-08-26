@@ -1,0 +1,50 @@
+### Test items ###
+index;id;type;segments;question;qanswer
+0;001;UNGR;"Jan/en/Marie/zaten/na/een/lange/
+werkdag/samen/te/wachten/in/de/
+stationsrestauratie/in/Amsterdam./
+Jan/at/een/broodje/met/ham,/#
+en/#Marie/#een/#koffie/#met/#veel/#melk./#De/#stemming/#
+was/#niet/#best,/#omdat/#de/#trein/meer/dan/
+30/minuten/vertraging/had.";Jan at een broodje.;1
+1;001;GRAMM;"Jan/en/Marie/zaten/na/een/lange/
+werkdag/samen/te/wachten/in/de/
+stationsrestauratie/in/Amsterdam./
+Jan/vroeg/een/broodje/met/ham,/#
+en/#Marie/#een/#koffie/#met/#veel/#melk./#De/#stemming/#
+was/#niet/#best,/#omdat/#de/#trein/meer/dan/
+30/minuten/vertraging/had.";Jan at een broodje.;1
+1;002;UNGR;"Roos/en/Lisa/hadden/aangeboden/het/huis/
+van/oma/eens/flink/op/te/knappen/en/schoon/te/
+maken./Roos/schuurde/het/houtwerk/in/de/gang,/#
+en/#Lisa/#het/#tapijt/#in/#de/#kamer./#Oma/#wist/#
+niet/#wat/#ze/#zag/#en/#bedankte/de/dames/met/
+een/bos/bloemen.";;
+0;002;GRAMM;"Roos/en/Lisa/hadden/aangeboden/het/huis/
+van/oma/eens/flink/op/te/knappen/en/schoon/te/
+maken./Roos/schrobde/het/houtwerk/in/de/gang,/#
+en/#Lisa/#het/#tapijt/#in/#de/#kamer./#Oma/#wist/#
+niet/#wat/#ze/#zag/#en/#bedankte/de/dames/met/
+een/bos/bloemen.";;
+0;003;FILLER;"Op/het/introductiekamp/van/hun/nieuwe/studie/
+misten/Suzy/en/Jochem/hun/partner/meer/dan/ooit./
+Suzy/zocht/een/brief/van/haar/vriend,/en/Jochem/
+een/foto/van/zijn/vriendin./Gelukkig/duurde/het/
+kamp/maar/vijf/dagen.";Suzy zocht een foto.;0
+0;004;FILLER;"Martijn/en/Jessica/verwachtten/samen/hun/
+eerste/kindje/en/vonden/het/leuk/zelf/
+babyspulletjes/te/maken./Martijn/zaagde/
+een/bedje/van/hout,/terwijl/Jessica/een/
+dekentje/van/zachte/wol/breide./
+Het/resultaat/was/een/prachtige/wieg.";;
+1;003;FILLER;"Op/het/introductiekamp/van/hun/nieuwe/studie/
+misten/Suzy/en/Jochem/hun/partner/meer/dan/ooit./
+Suzy/zocht/een/brief/van/haar/vriend,/en/Jochem/
+een/foto/van/zijn/vriendin./Gelukkig/duurde/het/
+kamp/maar/vijf/dagen.";Suzy zocht een foto.;0
+1;004;FILLER;"Martijn/en/Jessica/verwachtten/samen/hun/
+eerste/kindje/en/vonden/het/leuk/zelf/
+babyspulletjes/te/maken./Martijn/zaagde/
+een/bedje/van/hout,/terwijl/Jessica/een/
+dekentje/van/zachte/wol/breide./
+Het/resultaat/was/een/prachtige/wieg.";;
