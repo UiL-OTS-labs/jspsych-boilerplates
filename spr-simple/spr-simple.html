@@ -4,7 +4,8 @@
         <meta charset="utf8"></meta>
         <title>Simple Self Paced Reading</title>
         <script src="./jsPsych/jspsych.js"></script>
-        <script src="./jsPsych/plugins/html-keyboard-response.js"></script>
+        <script src="./jsPsych/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="./stimuli.js"></script>
         <link href src="./jsPsych/css/jspsych.css" rel="stylesheet" type="text/css">
         </link>
         <script src="./stimuli.js"></script>
@@ -12,13 +13,13 @@
     <body>
     </body>
     <script>
-
+load_stimuli();
 let timeline = [];
 let introduction = {
     type: "html-keyboard-response",
-    stimulus = "<p>you are about to see words, those words</p> " +
+    stimulus : "<p>you are about to see words, those words</p> " +
                "<p>will form a sentence try to understand what </p> " +
-               "<p>the words mean, sometimes a question appears after the words</p> "
+               "<p>the words mean, sometimes a question appears after the words</p>"
 };
 timeline.push(introduction)
 jsPsych.init({
