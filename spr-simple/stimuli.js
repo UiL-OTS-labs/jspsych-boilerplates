@@ -1,47 +1,47 @@
-
-// constants
-var PRAC        = "PRAC";
-var TEST        = "TEST";
-var GRAMM       = "GRAM";
-var UNGRAMM     = "UNGRAM";
-var FILLER      = "FILLER";
-
-var answers = ["True", "False"];
-
+export {get_practice_items, get_test_items, load_stimuli};
+   
 var PRAC_STIM_URI = "prac_items.json"
 var TEST_STIM_URI = "test_items.json"
 
-var prac_finish, test_finish;
-var prac_items;
-var test_items;
+var prac_status = {finish : false};
+var test_status = {finish : false};
+let prac_items = [];
+let test_items = [];
 
-function load_file(output, finish_bool, filepath) {
+// This function issues a warning. However, its not wise to
+// continue without loading the stimuli.
+function load_file(output, finish_status, url) {
     var request = new XMLHttpRequest();
     request.onload = function () {
         if (request.status == 200) {
-            output = JSON.parse(request.responseText);
-            finish_bool = true;
+            stimarray = JSON.parse(request.responseText);
+            stimarray.forEach(stimulus => output.push(stimulus));
+            finish_status.finish = true;
+            console.log("finish_status = " + JSON.stringify(finish_status) +
+                        "\tprac_status = " + JSON.stringify(prac_status) +
+                        "\ttest_status = " + JSON.stringify(test_status)
+            );
         }
         else {
-            console.log("Unable to load: " + filepath);
+            console.log("Unable to load: " + url);
         }
     }
-    request.open("GET", filepath, true);
+    request.open("GET", url, false);
     request.send();
 }
 
-
-function add_prac_times(array) {
+function get_practice_items() {
+    return prac_items;
 }
 
-function add_test_times(array) {
+function get_test_items() {
+    return prac_items;
 }
 
 function load_stimuli()
 {
-    prac_json = load_file(prac_items, prac_finish, PRAC_STIM_URI);
-    test_json = load_file(test_items, test_finish, TEST_STIM_URI);
-    prac_array = JSON.parse(prac_json);
-    test_array = JSON.parse(test_json);
+    load_file(prac_items, prac_status, PRAC_STIM_URI);
+    load_file(test_items, test_status, TEST_STIM_URI);
+    let group = get_query_string_variable("group");
+    test_items.filter(function (trial) {return trial.group == group;});
 }
-
