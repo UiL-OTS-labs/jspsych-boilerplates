@@ -5,8 +5,6 @@
         <title>Simple Self Paced Reading</title>
         <script src="./jsPsych/jspsych.js"></script>
         <script src="./jsPsych/plugins/jspsych-html-keyboard-response.js"></script>
-	    <script type="module" src="./utils.js"></script>
-        <script type="module" src="./stimuli.js"></script>
         <link href src="./jsPsych/css/jspsych.css" rel="stylesheet" type="text/css">
         </link>
     </head>
@@ -15,6 +13,7 @@
     <script type="module">
 import {load_stimuli, get_prac_items, get_test_items} from "./stimuli.js" ;
 load_stimuli();
+let stimuli = get_test_items();
 let timeline = [];
 let introduction = {
     type: "html-keyboard-response",
