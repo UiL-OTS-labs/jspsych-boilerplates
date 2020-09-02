@@ -1,4 +1,6 @@
-export {get_practice_items, get_test_items, load_stimuli};
+export {get_prac_items, get_test_items, load_stimuli};
+
+import {get_query_string_variable} from "./utils.js"
    
 var PRAC_STIM_URI = "prac_items.json"
 var TEST_STIM_URI = "test_items.json"
@@ -14,7 +16,7 @@ function load_file(output, finish_status, url) {
     var request = new XMLHttpRequest();
     request.onload = function () {
         if (request.status == 200) {
-            stimarray = JSON.parse(request.responseText);
+            let stimarray = JSON.parse(request.responseText);
             stimarray.forEach(stimulus => output.push(stimulus));
             finish_status.finish = true;
             console.log("finish_status = " + JSON.stringify(finish_status) +
@@ -30,7 +32,7 @@ function load_file(output, finish_status, url) {
     request.send();
 }
 
-function get_practice_items() {
+function get_prac_items() {
     return prac_items;
 }
 
