@@ -5,23 +5,42 @@
         <title>Simple Self Paced Reading</title>
         <script src="./jsPsych/jspsych.js"></script>
         <script src="./jsPsych/plugins/jspsych-html-keyboard-response.js"></script>
-	    <script type="module" src="./utils.js"></script>
+        <script src="./jsPsych/plugins/jspsych-html-button-response.js"></script>
         <script type="module" src="./stimuli.js"></script>
-        <link href src="./jsPsych/css/jspsych.css" rel="stylesheet" type="text/css">
+        <link href="./jsPsych/css/jspsych.css" rel="stylesheet" type="text/css">
         </link>
     </head>
     <body>
     </body>
-    <script>
+    <script type=module>
+import {append_trials, get_test_items, get_practice_items, load_stimuli} from "./stimuli.js";
+
 load_stimuli();
+
 let timeline = [];
 let introduction = {
     type: "html-keyboard-response",
 	stimulus : "<p>you are about to see words, those words</p> " +
                "<p>will form a sentence try to understand what </p> " +
-               "<p>the words mean, sometimes a question appears after the words</p>"
+               "<p>the words mean, sometimes a question appears after the words</p>" +
+               "<p>firs we will have a practice, then a test phase will be presented.</p>"
 };
-timeline.push(introduction)
+
+timeline.push(introduction);
+
+let prac_items = get_practice_items());
+append_trials,(timeline, prac_items);
+
+let pre_test_instruction = {
+    type: "html-keyboard-response",
+    stimulus : "<p>The practice phase has completed</p> " +
+		       "<p>Now the test phase will follow</p>"
+};
+
+timeline.push(pre_test_instruction);
+
+let test_items = get_test_items();
+append_trials(timeline, test_items);
 
 jsPsych.init({
     timeline: timeline
