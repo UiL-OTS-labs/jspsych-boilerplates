@@ -5,29 +5,20 @@
         <title>Simple Self Paced Reading</title>
         <script src="./jsPsych/jspsych.js"></script>
         <script src="./jsPsych/plugins/jspsych-html-keyboard-response.js"></script>
-<<<<<<< HEAD
         <script src="./jsPsych/plugins/jspsych-html-button-response.js"></script>
         <script type="module" src="./stimuli.js"></script>
         <link href="./jsPsych/css/jspsych.css" rel="stylesheet" type="text/css">
-=======
         <link href src="./jsPsych/css/jspsych.css" rel="stylesheet" type="text/css">
->>>>>>> de9fe855d8c7a18eda742b8d172364690e5dcd4f
         </link>
     </head>
     <body>
     </body>
-<<<<<<< HEAD
     <script type=module>
+
 import {append_trials, get_test_items, get_practice_items, load_stimuli} from "./stimuli.js";
 
 load_stimuli();
-
-=======
-    <script type="module">
-import {load_stimuli, get_prac_items, get_test_items} from "./stimuli.js" ;
-load_stimuli();
 let stimuli = get_test_items();
->>>>>>> de9fe855d8c7a18eda742b8d172364690e5dcd4f
 let timeline = [];
 let introduction = {
     type: "html-keyboard-response",
@@ -39,7 +30,7 @@ let introduction = {
 
 timeline.push(introduction);
 
-let prac_items = get_practice_items());
+let prac_items = get_practice_items();
 append_trials,(timeline, prac_items);
 
 let pre_test_instruction = {
