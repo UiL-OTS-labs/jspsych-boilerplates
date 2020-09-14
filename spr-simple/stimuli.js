@@ -28,6 +28,10 @@ function load_file(output, finish_status, url) {
             let stimarray = JSON.parse(request.responseText);
             stimarray.forEach(stimulus => output.push(stimulus));
             finish_status.finish = true;
+            console.log("finish_status = " + JSON.stringify(finish_status) +
+                        "\tprac_status = " + JSON.stringify(prac_status) +
+                        "\ttest_status = " + JSON.stringify(test_status)
+            );
         }
         else {
             console.log("Unable to load: " + url);
@@ -74,6 +78,7 @@ function append_trials(timeline, trials) {
 function get_practice_items() {
     return prac_items;
 }
+
 function get_test_items() {
     return test_items;
 }
