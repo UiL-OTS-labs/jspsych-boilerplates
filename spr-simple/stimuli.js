@@ -88,5 +88,5 @@ function load_stimuli()
     load_file(prac_items, prac_status, PRAC_STIM_URI);
     load_file(test_items, test_status, TEST_STIM_URI);
     let group = get_query_string_variable("group");
-    test_items.filter(function (trial) {return trial.group == group;});
+    test_items = test_items.filter(function (trial) {return trial.group == group;});
 }
