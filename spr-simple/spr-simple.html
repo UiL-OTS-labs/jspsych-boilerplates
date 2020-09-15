@@ -20,6 +20,8 @@ import {append_trials, get_test_items, get_practice_items, load_stimuli} from ".
 load_stimuli();
 let stimuli = get_test_items();
 let timeline = [];
+
+// instruction trials 
 let introduction = {
     type: "html-keyboard-response",
 	stimulus : "<p>you are about to see words, those words</p> " +
@@ -28,21 +30,28 @@ let introduction = {
                "<p>firs we will have a practice, then a test phase will be presented.</p>"
 };
 
-timeline.push(introduction);
-
-let prac_items = get_practice_items();
-append_trials,(timeline, prac_items);
-
 let pre_test_instruction = {
     type: "html-keyboard-response",
     stimulus : "<p>The practice phase has completed</p> " +
-		       "<p>Now the test phase will follow</p>"
+               "<p>Now the test phase will follow</p>"
 };
+
+let post_test_instruction = {
+    type: "html-keyboard-response",
+    stimulus : "<p>The experiment has finished, Thank you for participating!</p> " +
+};
+
+timeline.push(introduction);
+
+let prac_items = get_practice_items();
+append_trials(timeline, prac_items);
+
 
 timeline.push(pre_test_instruction);
 
 let test_items = get_test_items();
 append_trials(timeline, test_items);
+timeline.push(post_test_instruction);
 
 jsPsych.init({
     timeline: timeline
