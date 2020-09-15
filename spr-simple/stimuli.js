@@ -19,6 +19,8 @@ var question_answers = ["true", "false"];
 let FIX_DUR = 1000;
 let ISI     = 1000;
 
+let stimstyle = "\"font-size:32px;\""
+
 // This function issues a warning. However, its not wise to
 // continue without loading the stimuli.
 function load_file(output, finish_status, url) {
@@ -59,7 +61,9 @@ function append_trials(timeline, trials) {
                 choices : [' '],
                 timeline : []
             };
-            words.forEach(word => trial.timeline.push({stimulus : word}));
+            words.forEach(word => trial.timeline.push({
+                stimulus : "<p style=" + stimstyle + ">" + word + "</p>"
+            }));
             timeline.push(trial);
             if (jt.question) {
                 let answer = (jt.qanswer == "1" || jt.qanswer == 1 || jt.qanswer == true);
