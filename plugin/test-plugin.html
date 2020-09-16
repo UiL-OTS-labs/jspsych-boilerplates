@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf8"></meta>
+        <title>test-spr-moving-window-plugin</title>
+        <script src="./jsPsych/jspsych.js"></script>
+        <link href="./jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+        <script src="jsPsych/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="jspsych-plugin-template.js"></script>
+    </head>
+    <body>
+    </body>
+    <script>
+
+let timeline = [];
+
+var welcome = {
+    type : 'template',
+    parameter_name : 'parameter'
+}
+
+timeline.push(welcome);
+
+// run the experiment
+
+jsPsych.init({
+    timeline: timeline
+})
+    </script>
+</html>
