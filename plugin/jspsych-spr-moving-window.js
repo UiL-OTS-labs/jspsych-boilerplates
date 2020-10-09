@@ -42,8 +42,19 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
         const SPR_CANVAS = "SprCanvas";
 
         // Reused regular expressions.
-        const captured_word_re = /(\p{L}+)/gu;
-        const newline_re = /\n/gu;
+        //
+        // \p{} is for a unicode property
+        // \p{L} matches a "alfabetic" character throughout languages.
+        // see https://javascript.info/regexp-unicode
+        const CAP_WORD = '(\\p{L}+)';
+        const NEWLINE = '\n';
+        const INTERPUNCTION = "\\p{P}";
+
+        const GLOBAL_UNICODE_RE_FLAGS = 'gu';
+
+        const CAP_WORD_RE = RegExp(CAP_WORD, GLOBAL_UNICODE_RE_FLAGS);
+        const NEW_LINE_RE = RegExp(NEWLINE, GLOBAL_UNICODE_RE_FLAGS);
+        const INTERPUNCTION_RE = RegExp(INTERPUNCTION, GLOBAL_UNICODE_RE_FLAGS);
 
         function draw_stimulus(canvas, context, font_color, background_color) {
             // draw background
@@ -56,18 +67,19 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
         }
 
         plugin.trial = function(display_element, trial) {
-
-            display_element.innerHTML = `<canvas width=900 height=600 id="${SPR_CANVAS}">`;
+            // Try to make this a little more dynamic.
+            display_element.innerHTML =
+                `<canvas width=900 height=600 id="${SPR_CANVAS}">`;
             canvas = document.getElementById(SPR_CANVAS);
             var ctx = canvas.getContext(
                 '2d',
                 {alpha:false}
             );
             let stim = trial.stimulus;
-            let lines = stim.split(newline_re);
+            let lines = stim.split(NEW_LINE_RE);
 
             console.log(typeof (trial.stimulus) + " " + trial.stimulus) ;
-            console.log(trial.stimulus.split(captured_word_re));
+            console.log(trial.stimulus.split(CAP_WORD_RE));
             draw_stimulus(
                 canvas,
                 ctx,
