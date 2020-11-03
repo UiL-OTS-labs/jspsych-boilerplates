@@ -84,8 +84,13 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
         const SPR_CANVAS = "SprCanvas";
 
         // Reused regular expressions.
-        const captured_word_re = /(\p{L}+)/gu;
-        const newline_re = /\n/gu;
+        //
+        // \p{} is for a unicode property
+        // \p{L} matches a "alfabetic" character throughout languages.
+        // see https://javascript.info/regexp-unicode
+        const CAP_WORD = '(\\p{L}+)';
+        const NEWLINE = '\n';
+        const INTERPUNCTION = "\\p{P}";
 
         // private variables
         
@@ -152,6 +157,7 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
                 {alpha:false}
             );
             let stim = trial.stimulus;
+            let lines = stim.split(newline_re);
 
             console.log(typeof (trial.stimulus) + " " + trial.stimulus) ;
             console.log(trial.stimulus.split(captured_word_re));
