@@ -22,7 +22,7 @@ var welcome = {
 
 var example = {
     type : 'spr-moving-window',
-    stimulus : 'We hebben de vuile was\nbuiten gezet.\nDaarover bestaan goede ideëen. Echt waar.'
+    stimulus : 'We #hebben #de #vuile was\nbuiten gezet.\nDaarover bestaan goede ideëen. Echt waar.'
 }
 
 timeline.push(welcome);
@@ -31,7 +31,10 @@ timeline.push(example)
 // run the experiment
 
 jsPsych.init({
-    timeline: timeline
+    timeline : timeline,
+    on_finish : function() {
+        jsPsych.data.displayData()
+    }
 })
 
     </script>
