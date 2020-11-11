@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf8"></meta>
+        <title>test-spr-moving-window-plugin</title>
+        <script src="jsPsych-6.1.0/jspsych.js"></script>
+        <link href="jsPsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+        <script src="jsPsych-6.1.0//plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="jspsych-spr-moving-window.js"></script>
+    </head>
+    <body>
+    </body>
+    <script>
+
+let timeline = [];
+
+var welcome = {
+    type : 'html-keyboard-response',
+    choices : jsPsych.ALL_KEYS,
+    stimulus : '<p>Welcome to this experiment press any key to continue</p>'
+}
+
+var example = {
+    type : 'spr-moving-window',
+    stimulus : 'We #hebben #de #vuile was\nbuiten gezet.\nDaarover bestaan goede ideëen. Echt waar.'
+}
+
+timeline.push(welcome);
+timeline.push(example)
+
+// run the experiment
+
+jsPsych.init({
+    timeline : timeline,
+    on_finish : function() {
+        jsPsych.data.displayData()
+    }
+})
+
+    </script>
+</html>
