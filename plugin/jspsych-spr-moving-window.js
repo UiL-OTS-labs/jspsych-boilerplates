@@ -159,7 +159,7 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
         
         let word_index = 0;         // the nth_word that should be presented.
         let words = [];             // array of TextInfo.
-        let old_html = "";          // The current display html, in order to
+        let old_html = "";          // the current display html, in order to
                                     // restore it when finished.
         let font = "";              // family of the font with px size
         let background_color = "";  // the color of the paper of the text.
@@ -168,7 +168,8 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
         let gwidth = 0;             // width of the canvas
         let gheight = 0;            // and the height.
         let valid_keys = null;      // the valid keys or choices for a response
-        let gelement = null;        // the element we get from jsPsych
+        let gelement = null;        // the element we get from jsPsych.
+        let reactiontimes = [];     // store for relevant reactiontimes.
         
         /**
          * Setup the variables for use at the start of a new trial
@@ -187,6 +188,7 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
             gheight = trial_pars.height;
             valid_keys = trial_pars.choices;
             gelement = display_element;
+            reactiontimes = [];
             
             createCanvas(display_element, trial_pars);
             ctx.font = font;
@@ -267,7 +269,6 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
         }
 
         function installResponse(trial_pars) {
-            console.log("Valid responses " + valid_keys);
             jsPsych.pluginAPI.getKeyboardResponse(
                 {
                     callback_function : afterResponse,
@@ -281,15 +282,52 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
         }
 
         function finish() {
+
             let data = {
-                rt : undefined,
+                rt1 : -1,
+                rt2 : -1,
+                rt3 : -1,
+                rt4 : -1,
+                rt5 : -1,
+                rt6 : -1,
+                rt7 : -1,
+                rt8 : -1,
+                rt9 : -1,
+                rt10: -1,
             }
-            jsPsych.finishTrial(data);
+
+            if (reactiontimes.length > 0)
+                data.rt1 = reactiontimes[0];
+            if (reactiontimes.length > 1)
+                data.rt2 = reactiontimes[1];
+            if (reactiontimes.length > 2)
+                data.rt3 = reactiontimes[2];
+            if (reactiontimes.length > 3)
+                data.rt4 = reactiontimes[3];
+            if (reactiontimes.length > 4)
+                data.rt5 = reactiontimes[4];
+            if (reactiontimes.length > 5)
+                data.rt6 = reactiontimes[5];
+            if (reactiontimes.length > 6)
+                data.rt7 = reactiontimes[6];
+            if (reactiontimes.length > 7)
+                data.rt8 = reactiontimes[7];
+            if (reactiontimes.length > 8)
+                data.rt9 = reactiontimes[8];
+            if (reactiontimes.length > 9)
+                data.rt10 = reactiontimes[9];
+
             gelement.innerHTML = old_html;
+            jsPsych.finishTrial(data);
         }
 
+        /**
+         * Callback for when the participant presses a valid key.
+         */
         function afterResponse(info) {
-            // store data before incrementing the word_index.
+            if (words[word_index].record)
+                reactiontimes.push(info.rt);
+
             word_index++;
             if (word_index >= words.length) {
                 finish();
@@ -298,7 +336,6 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
                 drawStimulus();
                 installResponse();
             }
-            console.log(`Rt = ${info.rt} key = "${info.key}"`);
         }
 
         /**
