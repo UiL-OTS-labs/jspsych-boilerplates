@@ -18,7 +18,7 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
                 choices : {
                     type :          jsPsych.plugins.parameterType.KEYCODE,
                     pretty_name :   "Choices",
-                    default :       jsPsych.ALL_KEYS,
+                    default :       32,
                     description :   "The keys allowed to advance a word."
                 },
                 background_color : {
@@ -167,6 +167,8 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
         let ctx = null;             // 2D drawing context
         let gwidth = 0;             // width of the canvas
         let gheight = 0;            // and the height.
+        let valid_keys = null;      // the valid keys or choices for a response
+        let gelement = null;        // the element we get from jsPsych
         
         /**
          * Setup the variables for use at the start of a new trial
@@ -183,6 +185,8 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
             font_color = trial_pars.font_color;
             gwidth = trial_pars.width;
             gheight = trial_pars.height;
+            valid_keys = trial_pars.choices;
+            gelement = display_element;
             
             createCanvas(display_element, trial_pars);
             ctx.font = font;
@@ -206,7 +210,8 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
         }
 
         /**
-         *
+         * Processes the lines, it "measures" where each word should be.
+         * the output is stored in the global plugin variable words.
          */
         function gatherWordInfo(lines, trial_pars) {
 
@@ -249,8 +254,7 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
 
             // draw text
             ctx.fillStyle = font_color;
-            let i;
-            for (i = 0; i < words.length; i++) {
+            for (let i = 0; i < words.length; i++) {
                 let word = words[i];
                 let pos = word.pos;
                 if (i === word_index) {
@@ -262,9 +266,38 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
             }
         }
 
+        function installResponse(trial_pars) {
+            console.log("Valid responses " + valid_keys);
+            jsPsych.pluginAPI.getKeyboardResponse(
+                {
+                    callback_function : afterResponse,
+                    valid_responses : [valid_keys],
+                    rt_method : 'performance',
+                    persist : false, // We reinstall the response, because
+                                     // otherwise the rt is cumulative.
+                    allow_held_key: false
+                }
+            );
+        }
+
+        function finish() {
+            let data = {
+                rt : undefined,
+            }
+            jsPsych.finishTrial(data);
+            gelement.innerHTML = old_html;
+        }
+
         function afterResponse(info) {
+            // store data before incrementing the word_index.
             word_index++;
-            drawStimulus();
+            if (word_index >= words.length) {
+                finish();
+            }
+            else {
+                drawStimulus();
+                installResponse();
+            }
             console.log(`Rt = ${info.rt} key = "${info.key}"`);
         }
 
@@ -275,16 +308,9 @@ jsPsych.plugins[SPR_MW_PLUGIN_NAME] = (
         plugin.trial = function(display_element, trial_pars) {
 
             setupVariables(display_element, trial_pars);
+            installResponse();
             drawStimulus();
 
-            jsPsych.pluginAPI.getKeyboardResponse(
-                {
-                    callback_function : afterResponse,
-                    valid_response : trial_pars.choices,
-                    rt_method : 'performance',
-                    persist : true
-                }
-            );
         }
         
         /**
